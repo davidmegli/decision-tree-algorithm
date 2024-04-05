@@ -42,11 +42,6 @@ class DecisionTree:
                     subset_v = subset_v.drop(A.name, axis=1)
                 if not subset_v.empty:
                     tree.add_child(1, self.learnDecisionTree(subset_v))
-
-            #for v in [0, 1]:
-             #   subset_v = examples[examples.loc[A.name] < threshold].drop(A.name, axis=1) if v == 0 else examples.loc[examples[A].name >= threshold].drop(A.name, axis=1)
-              #  if not subset_v.empty:
-               #     tree.add_child(v, self.learnDecisionTree(subset_v))
         else:
             tree = Node(A.name)
             for v in examples[A.name].unique():
@@ -169,16 +164,16 @@ class DecisionTree:
         return node.attribute
     
     def predictAll(self, examples):
-        # Predict the target values of all examples in the dataset
+        # Predicts the target values of all examples in the dataset
         # Return a list of the predicted target values
         predictions = []
         for i in range(len(examples)):
-            prediction = self.predict(examples.iloc[i]) # TODO: sometimes it returns "ca" ??
+            prediction = self.predict(examples.iloc[i])
             predictions.append(prediction)
         return predictions
 
     def mostCommonTargetValue(self, dataset):
-        # Implement the function to return the most common target value in the dataset
+        # Returns the most common target value in the dataset
         # This will be used when the tree cannot be split further
         return dataset['target'].value_counts().idxmax()
 
